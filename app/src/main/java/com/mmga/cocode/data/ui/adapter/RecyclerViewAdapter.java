@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.data.model.Topic;
+import com.mmga.cocode.data.util.DateUtil;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,11 +37,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new MyViewHolder(view);
     }
 
+    Date date;
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Topic topic = itemList.get(position);
         holder.title.setText(topic.getTitle());
-        holder.topicInfos.setText("最后由 "+ topic.getLastPosterUsername() +" · "+topic.getLastPostedAt());
+        holder.topicInfos.setText("最后由 "+ topic.getLastPosterUsername() +" · "+ DateUtil.parseDate(topic.getLastPostedAt()));
     }
 
     @Override
