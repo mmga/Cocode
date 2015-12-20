@@ -1,4 +1,4 @@
-package com.mmga.cocode.data;
+package com.mmga.cocode.data.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

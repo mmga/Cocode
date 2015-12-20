@@ -1,6 +1,6 @@
-package com.mmga.cocode.data;
+package com.mmga.cocode.data.data;
 
-import com.mmga.cocode.data.model.CocodeData;
+import com.mmga.cocode.data.data.model.CocodeData;
 
 import retrofit.http.GET;
 import retrofit.http.Query;
