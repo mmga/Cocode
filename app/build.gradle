@@ -35,4 +35,7 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.8.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
+    compile 'cn.bingoogolapple:bga-badgeview:1.0.6@aar'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+
 }

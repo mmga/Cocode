@@ -1,54 +1,72 @@
 package com.mmga.cocode.data.ui.adapter;
 
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.data.model.Topic;
+import com.mmga.cocode.data.util.AvatarUrlUtil;
 import com.mmga.cocode.data.util.DateUtil;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-    List<Topic> itemList;
+    List<Topic> itemList =new ArrayList<>();
+    Topic topic;
+    Uri uri;
 
     public RecyclerViewAdapter() {
 
     }
 
-    public void setRecyclerViewAdapterData(List<Topic> list) {
+    public void setAdapterData(List<Topic> list) {
         this.itemList = list;
+        notifyDataSetChanged();
+    }
+
+    public void addAdapterData(List<Topic> topics) {
+        this.itemList.addAll(topics);
         notifyDataSetChanged();
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.main_list_item, parent, false);
+                R.layout.latest_item, parent, false);
         return new MyViewHolder(view);
     }
 
-    Date date;
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Topic topic = itemList.get(position);
+        topic = itemList.get(position);
         holder.title.setText(topic.getTitle());
-        holder.topicInfos.setText("最后由 "+ topic.getLastPosterUsername() +" · "+ DateUtil.parseDate(topic.getLastPostedAt()));
+        holder.bgaLayout.showTextBadge("" + topic.getPostsCount());
+        holder.topicInfos.setText(new StringBuilder().append("最后由 ").append(topic.getLastPosterUsername()).append(" · ").append(DateUtil.parseDate(topic.getLastPostedAt())).toString());
+
+        uri = Uri.parse(AvatarUrlUtil.getAvatarUrl(topic.getAvatarUrl(), AvatarUrlUtil.AVATAR_SIZE_SMALL));
+        holder.avatar.setImageURI(uri);
     }
 
     @Override
     public int getItemCount() {
         return itemList == null ? 0 : itemList.size();
     }
+
+
+
+
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -57,6 +75,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Bind(R.id.title)
         TextView title;
+
+        @Bind(R.id.bga_layout)
+        BGABadgeLinearLayout bgaLayout;
+
+        @Bind(R.id.avatar)
+        SimpleDraweeView avatar;
 
         public MyViewHolder(View itemView) {
             super(itemView);

@@ -4,7 +4,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/sharp_line_only_bottom"
+    android:background="@drawable/shap_line_only_bottom"
     app:popupTheme="@style/AppTheme.PopupOverlay">
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout
@@ -12,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_height"
         app:stl_defaultTabTextColor="@color/toolbar_text_color"
-        app:stl_defaultTabTextSize="16sp"
+        app:stl_defaultTabTextSize="14sp"
+        app:stl_defaultTabTextAllCaps = "false"
         app:stl_indicatorInterpolation="linear"
         app:stl_indicatorColor="#004773"
-        app:stl_indicatorWidth="40dp"
+        app:stl_indicatorWidth="60dp"
         app:stl_indicatorThickness="2dp"
         app:stl_indicatorCornerRadius="1dp"
         app:stl_distributeEvenly="true"

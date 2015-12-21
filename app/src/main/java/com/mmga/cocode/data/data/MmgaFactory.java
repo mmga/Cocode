@@ -11,8 +11,10 @@ import retrofit.RxJavaCallAdapterFactory;
 public class MmgaFactory {
 
 
+
     final static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            .excludeFieldsWithoutExposeAnnotation()
             .serializeNulls()
             .create();
 
@@ -27,4 +29,7 @@ public class MmgaFactory {
         T service = retrofit.create(clazz);
         return service;
     }
+
+
+
 }

@@ -1,8 +1,6 @@
 package com.mmga.cocode.data.util;
 
 
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,8 +25,6 @@ public class DateUtil {
             e.printStackTrace();
         }
         long timeNow = System.currentTimeMillis();
-        Log.d("mmga", "currentTime = " + timeNow);
-        Log.d("mmga", "postTime = " + date);
         //8h时差
         return simpleDate(timeNow - date.getTime() - 8 * HOUR);
 
@@ -41,13 +37,13 @@ public class DateUtil {
         } else if (time < MINUTE) {
             return "刚刚";
         } else if (time < HOUR) {
-            return "" + (int) time / MINUTE + "分钟前";
+            return "" + time / MINUTE + "分钟前";
         } else if (time < DAY) {
-            return "" + (int) time / HOUR + "小时前";
+            return "" + time / HOUR + "小时前";
         } else if (time < MONTH) {
-            return "" + (int) time / DAY + "日前";
+            return "" + time / DAY + "日前";
         } else if (time < YEAR) {
-            return "" + (int) time / MONTH + "月前";
+            return "" +  time / MONTH + "月前";
         } else {
             return "" + (int) time / YEAR + "年前";
         }
