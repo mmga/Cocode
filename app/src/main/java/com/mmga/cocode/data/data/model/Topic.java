@@ -9,7 +9,6 @@ import java.util.List;
 public class Topic {
 
 
-
     @Expose
     private Integer id;
     @Expose
@@ -60,7 +59,6 @@ public class Topic {
             this.userId = userId;
         }
     }
-
 
 
     //getters & setters
@@ -152,9 +150,6 @@ public class Topic {
     public void setPosters(List<Posters> posters) {
         this.posters = posters;
     }
-
-
-
 
 
 }

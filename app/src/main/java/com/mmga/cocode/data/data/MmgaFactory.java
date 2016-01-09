@@ -2,6 +2,12 @@ package com.mmga.cocode.data.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -10,8 +16,6 @@ import retrofit.RxJavaCallAdapterFactory;
 
 public class MmgaFactory {
 
-
-
     final static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             .excludeFieldsWithoutExposeAnnotation()
@@ -19,17 +23,45 @@ public class MmgaFactory {
             .create();
 
 
-    //返回CocodeApi
-    public static <T> T createRetrofitService(final Class<T> clazz) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://cocode.cc/")
+    private static Retrofit.Builder builder = new Retrofit.Builder()
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+
+
+    public static <T> T createGetService(final Class<T> serviceClass) {
+        Retrofit retrofit = builder
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl("http://cocode.cc/")
                 .build();
-        T service = retrofit.create(clazz);
-        return service;
+
+        return retrofit.create(serviceClass);
     }
 
+    public static <T> T createLoginService(Class<T> serviceClass, final String token) {
+        OkHttpClient httpClient = new OkHttpClient();
+        httpClient.interceptors().clear();
+        httpClient.interceptors().add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+
+                Request.Builder requestBuilder = original.newBuilder()
+//                        .header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+                        .header("X-Requested-With", "XMLHttpRequest")
+                        .header("Referer", "http://cocode.cc/")
+                        .header("X-CSRF-Token", token)
+                        .method(original.method(), original.body());
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            }
+        });
+
+        Retrofit retrofit = builder.client(httpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://cocode.cc/")
+                .build();
+        return retrofit.create(serviceClass);
+    }
 
 
 }

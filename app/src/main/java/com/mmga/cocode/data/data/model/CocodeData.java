@@ -17,13 +17,6 @@ public class CocodeData {
     private TopicList topicList;
 
 
-
-
-    public List<Users> getUsers() {
-        return users;
-    }
-
-
     public class TopicList {
         @Expose
         private List<Topic> topics = new ArrayList<Topic>();
@@ -40,6 +33,9 @@ public class CocodeData {
     }
 
 
+    public List<Users> getUsers() {
+        return users;
+    }
 
     public void setUsers(List<Users> users) {
         this.users = users;

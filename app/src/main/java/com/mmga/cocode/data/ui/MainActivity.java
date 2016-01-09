@@ -18,9 +18,6 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -36,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     SmartTabLayout viewPagerTab;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        final CocodeApi service = MmgaFactory.createRetrofitService(CocodeApi.class);
+        final CocodeApi service = MmgaFactory.createGetService(CocodeApi.class);
 
 
         setupTabView();
