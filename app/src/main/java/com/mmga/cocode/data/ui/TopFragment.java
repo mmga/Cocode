@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.MyApplication;
 import com.mmga.cocode.data.data.CocodeApi;
-import com.mmga.cocode.data.data.MmgaFactory;
+import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.data.model.CocodeData;
 import com.mmga.cocode.data.data.model.Topic;
 import com.mmga.cocode.data.data.model.Users;
@@ -65,7 +65,7 @@ public class TopFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        cocodeApi = MmgaFactory.createGetService(CocodeApi.class);
+        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class);
 
 
         subscription = cocodeApi.getLatestData(CocodeApi.TAB_TOP, 0)

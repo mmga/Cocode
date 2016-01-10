@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.data.CocodeApi;
-import com.mmga.cocode.data.data.MmgaFactory;
+import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.data.model.CocodeData;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        final CocodeApi service = MmgaFactory.createGetService(CocodeApi.class);
+        final CocodeApi service = ServiceGenerator.createGetService(CocodeApi.class);
 
 
         setupTabView();

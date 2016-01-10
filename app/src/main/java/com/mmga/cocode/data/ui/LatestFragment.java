@@ -80,7 +80,6 @@ public class LatestFragment extends Fragment implements LoadDataCallback {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyApplication.sContext, "haha", Toast.LENGTH_SHORT).show();
                 Login();
             }
         });
@@ -90,7 +89,7 @@ public class LatestFragment extends Fragment implements LoadDataCallback {
     }
 
     private void Login() {
-        provider.login("glueMe%40163.com","234186196");
+        provider.login("glueMe@163.com","234186196");
     }
 
 

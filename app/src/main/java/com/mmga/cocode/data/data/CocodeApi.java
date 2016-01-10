@@ -3,6 +3,7 @@ package com.mmga.cocode.data.data;
 import com.mmga.cocode.data.data.model.CocodeData;
 import com.mmga.cocode.data.data.provider.Token;
 
+import retrofit.Response;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -24,11 +25,15 @@ public interface CocodeApi {
     Observable<CocodeData> getLatestData(@Path("tab") String tab, @Query("page") int page);
 
     @FormUrlEncoded
-    @POST("session.json")
-    Observable<String> login(@Field("username") String loginName,
-                             @Field("password") String loginPassword);
+    @POST("session")
+    Observable<Response<AuthState>> login(@Field("login") String loginName,
+                               @Field("password") String loginPassword);
+
+
+//    @GET("session/csrf.json")
+//    void getToken(@Query("_") long timeStamp, Callback<Token> callback);
 
     @GET("session/csrf.json")
-    Observable<Token> getToken(@Query("_") long timeStamp);
+    Observable<Response<Token>> getToken(@Query("_") long timeStamp);
 
 }
