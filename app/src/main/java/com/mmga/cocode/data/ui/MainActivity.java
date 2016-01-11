@@ -1,6 +1,7 @@
 package com.mmga.cocode.data.ui;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,21 +9,17 @@ import android.support.v7.widget.Toolbar;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.mmga.cocode.data.ui.adapter.MyPagerAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-//    @Bind(R.id.fab)
-//    FloatingActionButton fab;
     @Bind(R.id.viewpager)
     ViewPager viewPager;
-    @Bind(R.id.viewpagertab)
-    SmartTabLayout viewPagerTab;
+    @Bind(R.id.tabs)
+    TabLayout tabLayout;
     int page;
 
 
@@ -38,24 +35,19 @@ public class MainActivity extends AppCompatActivity {
         final CocodeApi service = ServiceGenerator.createGetService(CocodeApi.class);
 
 
-        setupTabView();
+        setupViewPager();
+//        setupTabView();
 
     }
 
-    private void setupTabView() {
-        FragmentPagerItems pages = FragmentPagerItems.with(this)
-                .add(R.string.latest, LatestFragment.class)
-                .add(R.string.top, TopFragment.class)
-                .add(R.string.category, CategoryFragment.class)
-                .create();
-
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), pages);
-
+    private void setupViewPager() {
+        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new LatestFragment(), "最新");
+        adapter.addFragment(new TopFragment(), "热门");
+        adapter.addFragment(new CategoryFragment(), "分类");
         viewPager.setAdapter(adapter);
-        viewPagerTab.setViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
     }
-
-
 
 }

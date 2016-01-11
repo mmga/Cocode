@@ -7,27 +7,5 @@
     android:background="@drawable/shap_line_only_bottom"
     app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
-        android:id="@+id/viewpagertab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tab_height"
-        app:stl_defaultTabTextColor="@color/toolbar_text_color"
-        app:stl_defaultTabTextSize="14sp"
-        app:stl_defaultTabTextAllCaps = "false"
-        app:stl_indicatorInterpolation="linear"
-        app:stl_indicatorColor="#004773"
-        app:stl_indicatorWidth="60dp"
-        app:stl_indicatorThickness="2dp"
-        app:stl_indicatorCornerRadius="1dp"
-        app:stl_distributeEvenly="true"
-
-        app:stl_overlineColor="@color/transparent"
-        app:stl_overlineThickness="0dp"
-        app:stl_dividerColor="@color/transparent"
-        app:stl_dividerThickness="0dp"
-        app:stl_underlineColor="@color/transparent"
-        app:stl_underlineThickness="0dp"
-        />
-
 
 </android.support.v7.widget.Toolbar>
