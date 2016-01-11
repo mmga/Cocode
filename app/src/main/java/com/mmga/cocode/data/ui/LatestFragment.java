@@ -80,6 +80,8 @@ public class LatestFragment extends Fragment implements LoadDataCallback {
         provider.loadData(page);
     }
 
+
+
     private void Login() {
         provider.login("glueMe@163.com","234186196");
     }
