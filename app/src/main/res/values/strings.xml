@@ -4,6 +4,8 @@
     <string name="latest">最新</string>
     <string name="top">热门</string>
     <string name="category">分类</string>
+    <string name="login">登陆</string>
+    <string name="forgot_password">忘记密码?</string>
 
 
 </resources>

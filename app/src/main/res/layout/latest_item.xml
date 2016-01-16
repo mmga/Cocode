@@ -52,14 +52,5 @@
     </LinearLayout>
 
 
-    <!--<com.mmga.cocode.data.widget.BubbleText-->
-    <!--android:id="@+id/post_counts"-->
-    <!--android:layout_width="20dp"-->
-    <!--android:layout_height="20dp"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:layout_margin="4dp"-->
-    <!--android:src="#123456"-->
-    <!--android:text="18"-->
-    <!--android:textSize="12sp" />-->
 
 </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>

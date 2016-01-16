@@ -1,5 +1,6 @@
 package com.mmga.cocode.data.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.nav_home:
-                                ToastUtil.showShort(".");
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
                                 break;
                             case R.id.nav_messages:
                                 ToastUtil.showShort(".");

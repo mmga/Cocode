@@ -81,12 +81,6 @@ public class LatestFragment extends Fragment implements LoadDataCallback {
     }
 
 
-
-    private void Login() {
-        provider.login("glueMe@163.com","234186196");
-    }
-
-
     @Override
     public void OnLoadDataSuccess(List<Topic> topics) {
         Log.d("mmga", "onNext");
