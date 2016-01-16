@@ -20,7 +20,7 @@
         android:id="@+id/my_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/my_resume"
+        android:layout_above="@+id/login"
         android:layout_margin="4dp"
         android:text="username"
         android:textColor="@color/white"
@@ -28,13 +28,13 @@
         />
 
     <TextView
-        android:id="@+id/my_resume"
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:alpha="0.5"
         android:padding="4dp"
-        android:text="edite"
+        android:text="login"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
