@@ -9,13 +9,15 @@ import android.widget.EditText;
 
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.BaseActivity;
+import com.mmga.cocode.data.data.provider.LoginCallback;
 import com.mmga.cocode.data.data.provider.LoginProvider;
+import com.mmga.cocode.data.util.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener,LoginCallback{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -61,7 +63,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void login() {
         String name = editTextName.getText().toString();
         String password = editTextPassword.getText().toString();
-        provider = new LoginProvider();
+        provider = new LoginProvider(this);
         provider.login(name, password);
+    }
+
+    @Override
+    public void loginSucceed() {
+        ToastUtil.showShort("登录成功");
+    }
+
+    @Override
+    public void loginFailed(String errorText) {
+        ToastUtil.showShort(errorText);
     }
 }

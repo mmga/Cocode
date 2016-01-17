@@ -16,10 +16,15 @@ import rx.schedulers.Schedulers;
 
 public class LoginProvider {
 
+    LoginCallback callback;
+
     String cookieForumSession;
     String cookieT;
     boolean isLogin;
 
+    public LoginProvider(LoginCallback callback) {
+        this.callback = callback;
+    }
 
     public void login(final String loginName, final String loginPassword) {
         CocodeApi getTokenService = ServiceGenerator.createGetTokenService(CocodeApi.class);
@@ -36,17 +41,19 @@ public class LoginProvider {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("mmga", e.getMessage());
+                        callback.loginFailed("链接超时");
+                        Log.d("mmga", "getToken error: " + e.getMessage());
                     }
 
                     @Override
                     public void onNext(retrofit.Response<Token> response) {
                         String header = response.headers().get("Set-Cookie");
-                        Log.d("mmga","getToken :"+ response.headers().toString());
+                        Log.d("mmga", "getToken :" + response.headers().toString());
                         String token = response.body().getToken();
                         cookieForumSession = header.substring(header.indexOf("=") + 1, header.indexOf(";"));
-                        Log.d("mmga", cookieForumSession);
-                        String cookie = "_t=" + cookieT + "; " + "_forum_session=" + cookieForumSession;
+                        Cookie.setForumSession(cookieForumSession);
+//                        Log.d("mmga", cookieForumSession);
+                        String cookie = Cookie.getCookie();
                         loginWithToken(token, cookie, loginName, loginPassword);
                     }
                 });
@@ -63,23 +70,32 @@ public class LoginProvider {
                 .subscribe(new Subscriber<Response<AuthState>>() {
                     @Override
                     public void onCompleted() {
-//                        isLogin = true;
-                        Log.d("mmga", "login completed");
+//                        Log.d("mmga", "login completed");
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        callback.loginFailed("请输入密码");
                         Log.d("mmga", "login error: " + e.getMessage());
+
                     }
 
                     @Override
                     public void onNext(Response<AuthState> response) {
                         List<String> cookies = response.headers().values("Set-Cookie");
                         String cookie = cookies.get(0);
-                        cookieT = cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";"));
+
 //                        Log.d("mmga", "Login :" + response.headers().toString());
-                        Log.d("mmga", "_t = " + cookieT);
-                        Log.d("mmga", "login onNext: " + response.body().getError());
+                        if (cookie.startsWith("_t")) {
+                            cookieT = cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";"));
+                            Cookie.setCookieT(cookieT);
+                            Log.d("mmga", "_t = " + cookieT);
+                            callback.loginSucceed();
+                        } else {
+                            callback.loginFailed(response.body().getError());
+                        }
+
+                        Log.d("mmga", "login onNext: " + response.raw().message());
 
                     }
                 });

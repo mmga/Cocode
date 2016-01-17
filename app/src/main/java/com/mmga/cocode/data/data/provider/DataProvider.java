@@ -1,6 +1,8 @@
 package com.mmga.cocode.data.data.provider;
 
 
+import android.util.Log;
+
 import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.data.model.CocodeData;
@@ -10,6 +12,7 @@ import com.mmga.cocode.data.data.model.Users;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Response;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -34,15 +37,25 @@ public class DataProvider {
 
     public void loadData(int page) {
 //        if (!isLogin) {
-        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class);
+        Log.d("mmga", "dataProvider : cookie = " + Cookie.getCookie());
+        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class, Cookie.getCookie());
 //        } else {
 //            String cookie = "_t=" + cookieT + "; " + "_forum_session=" + cookieForumSession;
 //            cocodeApi = ServiceGenerator.createGetService(CocodeApi.class, cookie);
 //        }
-        Observable<CocodeData> observable = cocodeApi.getLatestData(CocodeApi.TAB_LATEST, page);
+        Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(CocodeApi.TAB_LATEST, page);
 
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(new Func1<Response<CocodeData>, Observable<CocodeData>>() {
+                    @Override
+                    public Observable<CocodeData> call(Response<CocodeData> cocodeDataResponse) {
+//                        String cookie = cocodeDataResponse.headers().get("Set-Cookie");
+//                        String forumSession = cookie.substring(cookie.indexOf("=") + 1, cookie.indexOf(";"));
+//                        Cookie.setForumSession(forumSession);
+                        return Observable.just(cocodeDataResponse.body());
+                    }
+                })
                 .doOnNext(new Action1<CocodeData>() {
                     @Override
                     public void call(CocodeData cocodeData) {

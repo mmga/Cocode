@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import retrofit.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -71,8 +72,12 @@ public class TopFragment extends Fragment {
         subscription = cocodeApi.getLatestData(CocodeApi.TAB_TOP, 0)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-
-
+                .map(new Func1<Response<CocodeData>, CocodeData>() {
+                    @Override
+                    public CocodeData call(Response<CocodeData> response) {
+                        return response.body();
+                    }
+                })
                 .doOnNext(new Action1<CocodeData>() {
                     @Override
                     public void call(CocodeData cocodeData) {

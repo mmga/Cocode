@@ -22,7 +22,7 @@ public interface CocodeApi {
 
 
     @GET("{tab}.json")
-    Observable<CocodeData> getLatestData(@Path("tab") String tab, @Query("page") int page);
+    Observable<Response<CocodeData>> getLatestData(@Path("tab") String tab, @Query("page") int page);
 
     @FormUrlEncoded
     @POST("session")

@@ -6,12 +6,12 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.mmga.cocode.R;
+import com.mmga.cocode.data.base.BaseActivity;
 import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.ui.adapter.MyPagerAdapter;
@@ -20,7 +20,7 @@ import com.mmga.cocode.data.util.ToastUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Bind(R.id.viewpager)
     ViewPager viewPager;
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ToastUtil.register();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
