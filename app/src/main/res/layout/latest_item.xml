@@ -9,10 +9,10 @@
     android:layout_marginBottom="8dp"
     android:background="@drawable/topic_item_bg"
     android:orientation="horizontal"
-    app:badge_bgColor="@color/item_badge_background"
+    app:badge_bgColor="@color/colorPrimaryLight"
     app:badge_horizontalMargin="12dp"
     app:badge_padding="5dp"
-    app:badge_textColor="@color/colorWhite"
+    app:badge_textColor="@color/white"
     app:badge_textSize="12sp">
 
 
@@ -23,7 +23,7 @@
         android:layout_gravity="center_vertical"
         android:layout_margin="8dp"
         fresco:roundAsCircle="true"
-        fresco:placeholderImage="@drawable/trust" />
+        fresco:placeholderImage="@color/placeholder" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -38,16 +38,16 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_title"
-            android:textSize="16sp" />
+            android:textAppearance="@style/list_title"
+             />
 
         <TextView
             android:id="@+id/topic_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:textColor="@color/topics_info"
-            android:textSize="12sp" />
+            android:textAppearance="@style/list_info"
+             />
 
     </LinearLayout>
 

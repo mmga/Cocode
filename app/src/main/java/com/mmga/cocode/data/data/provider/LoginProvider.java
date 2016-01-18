@@ -2,6 +2,8 @@ package com.mmga.cocode.data.data.provider;
 
 import android.util.Log;
 
+import com.mmga.cocode.R;
+import com.mmga.cocode.data.base.MyApplication;
 import com.mmga.cocode.data.data.AuthState;
 import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
@@ -20,7 +22,6 @@ public class LoginProvider {
 
     String cookieForumSession;
     String cookieT;
-    boolean isLogin;
 
     public LoginProvider(LoginCallback callback) {
         this.callback = callback;
@@ -41,7 +42,7 @@ public class LoginProvider {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.loginFailed("链接超时");
+                        callback.loginFailed(MyApplication.sContext.getString(R.string.login_timeout));
                         Log.d("mmga", "getToken error: " + e.getMessage());
                     }
 
@@ -70,12 +71,11 @@ public class LoginProvider {
                 .subscribe(new Subscriber<Response<AuthState>>() {
                     @Override
                     public void onCompleted() {
-//                        Log.d("mmga", "login completed");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.loginFailed("请输入密码");
+                        callback.loginFailed(MyApplication.sContext.getString(R.string.password_null));
                         Log.d("mmga", "login error: " + e.getMessage());
 
                     }

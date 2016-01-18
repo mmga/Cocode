@@ -3,6 +3,7 @@ package com.mmga.cocode.data.ui;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,13 +12,14 @@ import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.BaseActivity;
 import com.mmga.cocode.data.data.provider.LoginCallback;
 import com.mmga.cocode.data.data.provider.LoginProvider;
+import com.mmga.cocode.data.util.StatusBarCompat;
 import com.mmga.cocode.data.util.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener,LoginCallback{
+public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginCallback {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -34,6 +36,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        StatusBarCompat.compat(this, ContextCompat.getColor(this, R.color.colorPrimaryDark));
+
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.login);
@@ -47,6 +51,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         });
 
         loginButton.setOnClickListener(this);
+//        editTextName.setInputType(EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+//        editTextPassword.setInputType(EditorInfo.TYPE_TEXT_VARIATION_URI);
+        editTextPassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_UP) {
+                    login();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -58,8 +74,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-
-
     private void login() {
         String name = editTextName.getText().toString();
         String password = editTextPassword.getText().toString();
@@ -69,7 +83,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void loginSucceed() {
-        ToastUtil.showShort("登录成功");
+        ToastUtil.showShort(getString(R.string.login_succeed));
     }
 
     @Override

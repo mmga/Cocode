@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include layout="@layout/common_toolbar" />
-
 
 
     <RelativeLayout
@@ -18,36 +18,37 @@
 
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/login_username"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="36dp"
             android:layout_marginRight="36dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/shape_outline"
-            android:hint="电子邮箱或用户名"
-            android:textColorHint="@color/colorTextLight"
-            android:padding="8dp"
-            android:textColor="@color/text_title"
+            android:gravity="center_vertical"
+            android:hint="@string/login_hint"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textColor="@color/gray_800"
+            android:textColorHint="@color/gray_400"
             tools:text="12345678@163.com" />
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/login_password"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/login_username"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="36dp"
             android:layout_marginRight="36dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/shape_outline"
-            android:padding="8dp"
-            android:textColor="@color/text_title"
+            android:gravity="center_vertical"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textColor="@color/gray_800"
             tools:text="123456" />
 
         <Button
@@ -65,13 +66,13 @@
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/forgot_password"
-            android:text="@string/forgot_password"
             android:layout_alignRight="@+id/btn_login"
             android:layout_below="@+id/btn_login"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="@string/forgot_password" />
 
     </RelativeLayout>
 

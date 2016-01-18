@@ -1,12 +1,10 @@
 package com.mmga.cocode.data.data.provider;
 
-/**
- * Created by mmga on 2016/1/17.
- */
+
 public class Cookie {
     private static String cookie;
-    private static String cookieT;
-    private static String forumSession;
+    private static String cookieT="";
+    private static String forumSession="";
 
     private Cookie() {}
 

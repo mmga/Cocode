@@ -12,7 +12,7 @@
         android:layout_height="72dp"
         android:layout_above="@+id/my_name"
         android:layout_marginBottom="8dp"
-        fresco:placeholderImage="@drawable/trust"
+        fresco:placeholderImage="@color/placeholder"
         fresco:roundAsCircle="true"
         />
 
