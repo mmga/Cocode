@@ -51,8 +51,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         });
 
         loginButton.setOnClickListener(this);
-//        editTextName.setInputType(EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-//        editTextPassword.setInputType(EditorInfo.TYPE_TEXT_VARIATION_URI);
         editTextPassword.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -84,6 +82,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSucceed() {
         ToastUtil.showShort(getString(R.string.login_succeed));
+        finish();
     }
 
     @Override

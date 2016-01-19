@@ -55,8 +55,6 @@ public class LatestFragment extends Fragment implements LoadDataCallback {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (lastVisibleItem == mAdapter.getItemCount() - 1) {
                     Log.d("mmga", "itemCount= " + mAdapter.getItemCount());
-//                    page++;
-////                    loadData();
                 }
             }
 
