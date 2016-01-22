@@ -36,14 +36,9 @@ public class DataProvider {
 
 
     public void loadData(int page) {
-//        if (!isLogin) {
         Log.d("mmga", "dataProvider : cookie = " + Cookie.getCookie());
-        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class, Cookie.getCookie());
-//        } else {
-//            String cookie = "_t=" + cookieT + "; " + "_forum_session=" + cookieForumSession;
-//            cocodeApi = ServiceGenerator.createGetService(CocodeApi.class, cookie);
-//        }
-        Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(CocodeApi.TAB_LATEST, page);
+        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class);
+        Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(Cookie.getCookie(),CocodeApi.TAB_LATEST, page);
 
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

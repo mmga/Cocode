@@ -7,6 +7,7 @@ import retrofit.Response;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -22,7 +23,7 @@ public interface CocodeApi {
 
 
     @GET("{tab}.json")
-    Observable<Response<CocodeData>> getLatestData(@Path("tab") String tab, @Query("page") int page);
+    Observable<Response<CocodeData>> getLatestData(@Header("Cookie")String cookie,@Path("tab") String tab, @Query("page") int page);
 
     @FormUrlEncoded
     @POST("session")

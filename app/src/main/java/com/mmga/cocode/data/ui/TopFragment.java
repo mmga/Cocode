@@ -16,6 +16,7 @@ import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.data.model.CocodeData;
 import com.mmga.cocode.data.data.model.Topic;
 import com.mmga.cocode.data.data.model.Users;
+import com.mmga.cocode.data.data.provider.Cookie;
 import com.mmga.cocode.data.ui.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class TopFragment extends Fragment {
         cocodeApi = ServiceGenerator.createGetService(CocodeApi.class);
 
 
-        subscription = cocodeApi.getLatestData(CocodeApi.TAB_TOP, 0)
+        subscription = cocodeApi.getLatestData(Cookie.getCookie(),CocodeApi.TAB_TOP, 0)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<Response<CocodeData>, CocodeData>() {

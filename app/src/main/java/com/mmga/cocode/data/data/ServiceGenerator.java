@@ -26,10 +26,6 @@ public class ServiceGenerator {
     private static Retrofit.Builder builder = new Retrofit.Builder();
 
     public static <T> T createGetService(final Class<T> serviceClass) {
-        return createGetService(serviceClass, "");
-    }
-
-    public static <T> T createGetService(final Class<T> serviceClass, final String cookie) {
 
         OkHttpClient httpClient = new OkHttpClient();
         httpClient.interceptors().clear();
@@ -37,8 +33,7 @@ public class ServiceGenerator {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header("Cookie", cookie);
+                Request.Builder requestBuilder = original.newBuilder();
 
                 Request request = requestBuilder.build();
                 return  chain.proceed(request);
