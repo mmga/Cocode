@@ -37,7 +37,7 @@ public class DataProvider {
 
     public void loadData(int page) {
         Log.d("mmga", "dataProvider : cookie = " + Cookie.getCookie());
-        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class);
+        cocodeApi = ServiceGenerator.createCocodeService(CocodeApi.class);
         Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(Cookie.getCookie(),CocodeApi.TAB_LATEST, page);
 
         observable.subscribeOn(Schedulers.io())

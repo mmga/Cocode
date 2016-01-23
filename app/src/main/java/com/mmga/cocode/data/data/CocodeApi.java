@@ -23,12 +23,17 @@ public interface CocodeApi {
 
 
     @GET("{tab}.json")
-    Observable<Response<CocodeData>> getLatestData(@Header("Cookie")String cookie,@Path("tab") String tab, @Query("page") int page);
+    Observable<Response<CocodeData>> getLatestData(@Header("Cookie") String cookie,
+                                                   @Path("tab") String tab,
+                                                   @Query("page") int page);
 
     @FormUrlEncoded
     @POST("session")
-    Observable<Response<AuthState>> login(@Field("login") String loginName,
-                               @Field("password") String loginPassword);
+    Observable<Response<AuthState>> login(@Header("Cookie") String cookie,
+                                          @Header("X-CSRF-Token") String token,
+                                          @Header("X-Requested-With") String requestFormat,
+                                          @Field("login") String loginName,
+                                          @Field("password") String loginPassword);
 
 
 //    @GET("session/csrf.json")

@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        final CocodeApi service = ServiceGenerator.createGetService(CocodeApi.class);
+        final CocodeApi service = ServiceGenerator.createCocodeService(CocodeApi.class);
 
 
         setupViewPager();

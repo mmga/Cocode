@@ -18,6 +18,8 @@ import rx.schedulers.Schedulers;
 
 public class LoginProvider {
 
+    public static final String REQUEST_FORMAT = "XMLHttpRequest";
+
     LoginCallback callback;
 
     String cookieForumSession;
@@ -28,7 +30,7 @@ public class LoginProvider {
     }
 
     public void login(final String loginName, final String loginPassword) {
-        CocodeApi getTokenService = ServiceGenerator.createGetTokenService(CocodeApi.class);
+        CocodeApi getTokenService = ServiceGenerator.createCocodeService(CocodeApi.class);
         long timeStamp = new Date().getTime();
 
         getTokenService.getToken(timeStamp)
@@ -54,18 +56,18 @@ public class LoginProvider {
                         cookieForumSession = header.substring(header.indexOf("=") + 1, header.indexOf(";"));
                         Cookie.setForumSession(cookieForumSession);
 //                        Log.d("mmga", cookieForumSession);
-                        String cookie = Cookie.getCookie();
-                        loginWithToken(token, cookie, loginName, loginPassword);
+                        loginWithToken(token, loginName, loginPassword);
                     }
                 });
 
 
     }
 
-    private void loginWithToken(String token, String cookie, String loginName, String loginPassword) {
-        CocodeApi loginWithTokenService = ServiceGenerator.createLoginService(CocodeApi.class, token, cookie);
+    private void loginWithToken(String token, String loginName, String loginPassword) {
+        String cookie = Cookie.getCookie();
+        CocodeApi loginWithTokenService = ServiceGenerator.createCocodeService(CocodeApi.class);
 
-        loginWithTokenService.login(loginName, loginPassword)
+        loginWithTokenService.login(cookie, token, REQUEST_FORMAT, loginName, loginPassword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Response<AuthState>>() {

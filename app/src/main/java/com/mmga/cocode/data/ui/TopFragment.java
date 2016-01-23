@@ -67,7 +67,7 @@ public class TopFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        cocodeApi = ServiceGenerator.createGetService(CocodeApi.class);
+        cocodeApi = ServiceGenerator.createCocodeService(CocodeApi.class);
 
 
         subscription = cocodeApi.getLatestData(Cookie.getCookie(),CocodeApi.TAB_TOP, 0)
