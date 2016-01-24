@@ -9,36 +9,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.mmga.cocode.Constant;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.MyApplication;
 import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
-import com.mmga.cocode.data.data.model.CocodeData;
 import com.mmga.cocode.data.data.model.Topic;
 import com.mmga.cocode.data.data.model.Users;
-import com.mmga.cocode.data.data.provider.Cookie;
+import com.mmga.cocode.data.data.provider.DataProvider;
+import com.mmga.cocode.data.data.provider.LoadDataCallback;
 import com.mmga.cocode.data.ui.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import retrofit.Response;
-import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
-public class TopFragment extends Fragment {
+public class TopFragment extends Fragment implements LoadDataCallback {
 
     CocodeApi cocodeApi;
     Subscription subscription;
     RecyclerViewAdapter mAdapter;
     LinearLayoutManager mLayoutManager;
     List<Users> userList = new ArrayList<>();
+    DataProvider provider;
+    int page = 0;
 
 
     @Override
@@ -67,78 +63,27 @@ public class TopFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        provider = new DataProvider(Constant.TAB_TOP, this);
         cocodeApi = ServiceGenerator.createCocodeService(CocodeApi.class);
-
-
-        subscription = cocodeApi.getLatestData(Cookie.getCookie(),CocodeApi.TAB_TOP, 0)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<Response<CocodeData>, CocodeData>() {
-                    @Override
-                    public CocodeData call(Response<CocodeData> response) {
-                        return response.body();
-                    }
-                })
-                .doOnNext(new Action1<CocodeData>() {
-                    @Override
-                    public void call(CocodeData cocodeData) {
-                        userList = cocodeData.getUsers();
-                    }
-                })
-                .map(new Func1<CocodeData, List<Topic>>() {
-                    @Override
-                    public List<Topic> call(CocodeData cocodeData) {
-//                        Log.d("mmga", "map");
-                        return cocodeData.getTopicList().getTopics();
-                    }
-                })
-                .flatMap(new Func1<List<Topic>, Observable<Topic>>() {
-                    @Override
-                    public Observable<Topic> call(List<Topic> topics) {
-                        return Observable.from(topics);
-                    }
-                })
-                .map(new Func1<Topic, Topic>() {
-                    @Override
-                    public Topic call(Topic topic) {
-//                        Log.d("mmga", topic.getTitle());
-                        for (Users u : userList) {
-                            if (u.getId() == topic.getPosters().get(0).getUserId()) {
-                                topic.setAuthorName(u.getUserName());
-                                topic.setAvatarUrl(u.getAvatar());
-                                break;
-                            }
-                        }
-//                        Log.d("mmga", "avatar = " + topic.getAvatarUrl());
-                        return topic;
-                    }
-                })
-                .toList()
-                .subscribe(subscriber);
-
+        provider.loadData(page);
 
     }
 
 
-    Subscriber<List<Topic>> subscriber = new Subscriber<List<Topic>>() {
-        @Override
-        public void onCompleted() {
-            Toast.makeText(MyApplication.sContext, "complete", Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public void OnLoadDataSuccess(List<Topic> list) {
+        mAdapter.setAdapterData(list);
 
-        @Override
-        public void onError(Throwable e) {
-            Toast.makeText(MyApplication.sContext, "error", Toast.LENGTH_SHORT).show();
-        }
+    }
 
-        @Override
-        public void onNext(List<Topic> topics) {
-            mAdapter.setAdapterData(topics);
-        }
+    @Override
+    public void OnLoadDataComplete() {
+        Toast.makeText(MyApplication.sContext, "complete", Toast.LENGTH_SHORT).show();
 
+    }
 
-    };
-
-
-
+    @Override
+    public void OnLoadDataError(Throwable e) {
+        Toast.makeText(MyApplication.sContext, "error", Toast.LENGTH_SHORT).show();
+    }
 }

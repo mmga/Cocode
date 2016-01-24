@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.mmga.cocode.Constant;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.BaseActivity;
 import com.mmga.cocode.data.data.provider.LoginCallback;
 import com.mmga.cocode.data.data.provider.LoginProvider;
+import com.mmga.cocode.data.util.SharedPrefsUtil;
 import com.mmga.cocode.data.util.StatusBarCompat;
 import com.mmga.cocode.data.util.ToastUtil;
 
@@ -82,6 +84,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSucceed() {
         ToastUtil.showShort(getString(R.string.login_succeed));
+        SharedPrefsUtil.putValue(this, Constant.COOKIE_T,"");
         finish();
     }
 

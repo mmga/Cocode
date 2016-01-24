@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.BaseActivity;
 import com.mmga.cocode.data.data.CocodeApi;
@@ -77,7 +78,8 @@ public class MainActivity extends BaseActivity {
 
     private void setupDrawer() {
         TextView loginText = (TextView) navView.getHeaderView(0).findViewById(R.id.login);
-
+        SimpleDraweeView userAvatar = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.my_avatar);
+        // TODO: 2016/1/24 用户头像 
         navView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override

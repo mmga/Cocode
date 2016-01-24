@@ -24,12 +24,14 @@ public class DataProvider {
     CocodeApi cocodeApi;
     List<Users> userList;
     LoadDataCallback callback;
+    String tabName;
     String cookieForumSession;
     String cookieT;
     boolean isLogin;
 
 
-    public DataProvider(LoadDataCallback callback) {
+    public DataProvider(String tabName,LoadDataCallback callback) {
+        this.tabName = tabName;
         this.callback = callback;
         userList = new ArrayList<>();
     }
@@ -38,7 +40,7 @@ public class DataProvider {
     public void loadData(int page) {
         Log.d("mmga", "dataProvider : cookie = " + Cookie.getCookie());
         cocodeApi = ServiceGenerator.createCocodeService(CocodeApi.class);
-        Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(Cookie.getCookie(),CocodeApi.TAB_LATEST, page);
+        Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(Cookie.getCookie(),tabName, page);
 
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

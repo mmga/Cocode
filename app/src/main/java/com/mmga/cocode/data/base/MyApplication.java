@@ -4,27 +4,21 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.mmga.cocode.data.util.ToastUtil;
+import com.mmga.cocode.Constant;
+import com.mmga.cocode.data.data.provider.Cookie;
+import com.mmga.cocode.data.util.SharedPrefsUtil;
 
 
 public class MyApplication extends Application {
 
     public static Context sContext;
 
-//    private String cookieT;
-//
-//    public String getCookieT() {
-//        return cookieT;
-//    }
-//
-//    public void setCookieT(String cookieT) {
-//        this.cookieT = cookieT;
-//    }
-
     @Override
     public void onCreate() {
         super.onCreate();
         Fresco.initialize(this);
         sContext = this;
+        Cookie.setCookieT(SharedPrefsUtil.getValue(this, Constant.COOKIE_T, ""));
     }
+
 }

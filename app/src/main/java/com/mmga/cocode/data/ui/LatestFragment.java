@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.mmga.cocode.Constant;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.MyApplication;
 import com.mmga.cocode.data.data.model.Topic;
@@ -74,7 +75,7 @@ public class LatestFragment extends Fragment implements LoadDataCallback {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        provider = new DataProvider(this);
+        provider = new DataProvider(Constant.TAB_LATEST, this);
         provider.loadData(page);
     }
 

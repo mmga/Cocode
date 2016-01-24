@@ -16,9 +16,6 @@ import rx.Observable;
 
 public interface CocodeApi {
 
-    String TAB_LATEST = "latest";
-    String TAB_TOP = "top";
-
     String SERVICE_BASE_URL = "http://cocode.cc/";
 
 
@@ -35,9 +32,6 @@ public interface CocodeApi {
                                           @Field("login") String loginName,
                                           @Field("password") String loginPassword);
 
-
-//    @GET("session/csrf.json")
-//    void getToken(@Query("_") long timeStamp, Callback<Token> callback);
 
     @GET("session/csrf.json")
     Observable<Response<Token>> getToken(@Query("_") long timeStamp);

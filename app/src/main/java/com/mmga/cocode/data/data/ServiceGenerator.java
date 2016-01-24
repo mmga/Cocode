@@ -17,13 +17,12 @@ public class ServiceGenerator {
             .create();
 
 
-    private static Retrofit.Builder builder = new Retrofit.Builder();
-
     public static <T> T createCocodeService(final Class<T> serviceClass) {
+        Retrofit.Builder builder = new Retrofit.Builder();
         Retrofit retrofit = builder
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl("http://cocode.cc/")
+                .baseUrl(CocodeApi.SERVICE_BASE_URL)
                 .build();
 
         return retrofit.create(serviceClass);
