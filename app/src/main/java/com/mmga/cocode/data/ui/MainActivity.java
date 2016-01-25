@@ -79,7 +79,7 @@ public class MainActivity extends BaseActivity {
     private void setupDrawer() {
         TextView loginText = (TextView) navView.getHeaderView(0).findViewById(R.id.login);
         SimpleDraweeView userAvatar = (SimpleDraweeView) navView.getHeaderView(0).findViewById(R.id.my_avatar);
-        // TODO: 2016/1/24 用户头像 
+        // TODO: 2016/1/24 用户头像
         navView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
