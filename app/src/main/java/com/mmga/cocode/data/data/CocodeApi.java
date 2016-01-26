@@ -1,6 +1,7 @@
 package com.mmga.cocode.data.data;
 
 import com.mmga.cocode.data.data.model.CocodeData;
+import com.mmga.cocode.data.data.model.UserProfile;
 import com.mmga.cocode.data.data.provider.Token;
 
 import retrofit.Response;
@@ -35,5 +36,12 @@ public interface CocodeApi {
 
     @GET("session/csrf.json")
     Observable<Response<Token>> getToken(@Query("_") long timeStamp);
+
+
+    @GET("users/{username}/activity.json")
+    Observable<UserProfile> getUserProfile(@Header("Cookie") String cookie,
+                                @Path("username") String username);
+
+
 
 }

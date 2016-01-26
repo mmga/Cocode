@@ -7,6 +7,7 @@ import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.data.model.CocodeData;
 import com.mmga.cocode.data.data.model.Topic;
+import com.mmga.cocode.data.data.model.UserProfile;
 import com.mmga.cocode.data.data.model.Users;
 
 import java.util.ArrayList;
@@ -34,12 +35,12 @@ public class DataProvider {
         this.tabName = tabName;
         this.callback = callback;
         userList = new ArrayList<>();
+        cocodeApi = ServiceGenerator.createCocodeService(CocodeApi.class);
     }
 
 
     public void loadData(int page) {
         Log.d("mmga", "dataProvider : cookie = " + Cookie.getCookie());
-        cocodeApi = ServiceGenerator.createCocodeService(CocodeApi.class);
         Observable<Response<CocodeData>> observable = cocodeApi.getLatestData(Cookie.getCookie(),tabName, page);
 
         observable.subscribeOn(Schedulers.io())
@@ -96,6 +97,11 @@ public class DataProvider {
                         callback.OnLoadDataError(throwable);
                     }
                 });
+    }
+
+    public void getUserProfile(String userName) {
+        Observable<UserProfile> observable = cocodeApi.getUserProfile(Cookie.getCookie(), userName);
+
     }
 
 
