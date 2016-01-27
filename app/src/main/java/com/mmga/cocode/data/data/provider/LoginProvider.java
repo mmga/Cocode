@@ -7,6 +7,7 @@ import com.mmga.cocode.data.base.MyApplication;
 import com.mmga.cocode.data.data.AuthState;
 import com.mmga.cocode.data.data.CocodeApi;
 import com.mmga.cocode.data.data.ServiceGenerator;
+import com.mmga.cocode.data.data.model.UserProfile;
 
 import java.util.Date;
 import java.util.List;
@@ -73,6 +74,7 @@ public class LoginProvider {
                 .subscribe(new Subscriber<Response<AuthState>>() {
                     @Override
                     public void onCompleted() {
+                        getUserProfile();
                     }
 
                     @Override
@@ -102,4 +104,29 @@ public class LoginProvider {
                     }
                 });
     }
+
+    private void getUserProfile() {
+        CocodeApi getUserProfileService = ServiceGenerator.createCocodeService(CocodeApi.class);
+        getUserProfileService.getUserProfile(Cookie.getCookie(), "mmga")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UserProfile>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserProfile userProfile) {
+//                        userProfile.
+                    }
+                });
+    }
+
+
 }

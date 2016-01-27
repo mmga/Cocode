@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.BaseActivity;
-import com.mmga.cocode.data.data.CocodeApi;
-import com.mmga.cocode.data.data.ServiceGenerator;
 import com.mmga.cocode.data.ui.adapter.MyPagerAdapter;
 import com.mmga.cocode.data.util.StatusBarCompat;
 import com.mmga.cocode.data.util.ToastUtil;
@@ -57,13 +55,17 @@ public class MainActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        final CocodeApi service = ServiceGenerator.createCocodeService(CocodeApi.class);
 
-
+//        LoadUserProfile();
         setupViewPager();
         setupDrawer();
 
     }
+
+//    private void LoadUserProfile() {
+//        CocodeApi service = ServiceGenerator.createCocodeService(CocodeApi.class);
+////        service.getUserProfile()
+//    }
 
 
     private void setupViewPager() {
