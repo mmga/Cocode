@@ -101,6 +101,9 @@ public class DataProvider {
 
     public void getUserProfile(String userName) {
         Observable<UserProfile> observable = cocodeApi.getUserProfile(Cookie.getCookie(), userName);
+        observable.observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                
 
     }
 
