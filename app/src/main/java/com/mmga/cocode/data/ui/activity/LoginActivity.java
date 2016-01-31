@@ -1,4 +1,4 @@
-package com.mmga.cocode.data.ui;
+package com.mmga.cocode.data.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginSucceed() {
         ToastUtil.showShort(getString(R.string.login_succeed));
-        SharedPrefsUtil.putValue(this, Constant.COOKIE_T,"");
+        SharedPrefsUtil.putValue(this, Constant.COOKIE_T, "");
         finish();
     }
 

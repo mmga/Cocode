@@ -1,4 +1,4 @@
-package com.mmga.cocode.data.ui;
+package com.mmga.cocode.data.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.mmga.cocode.R;
 import com.mmga.cocode.data.base.BaseActivity;
 import com.mmga.cocode.data.ui.adapter.MyPagerAdapter;
+import com.mmga.cocode.data.ui.fragment.CategoryFragment;
+import com.mmga.cocode.data.ui.fragment.LatestFragment;
+import com.mmga.cocode.data.ui.fragment.TopFragment;
 import com.mmga.cocode.data.util.StatusBarCompat;
 import com.mmga.cocode.data.util.ToastUtil;
 

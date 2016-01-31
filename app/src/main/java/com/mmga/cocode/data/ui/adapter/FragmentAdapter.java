@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mmga.cocode.data.ui.LatestFragment;
+import com.mmga.cocode.data.ui.fragment.LatestFragment;
 
 /**
  * Created by mmga on 2015/12/20.

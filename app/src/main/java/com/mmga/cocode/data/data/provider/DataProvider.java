@@ -99,6 +99,8 @@ public class DataProvider {
                 });
     }
 
+
+    // TODO: 2016/1/31 用户资料页相关，以后做，不在这个类里
     public void getUserProfile(String userName) {
         Observable<UserProfile> observable = cocodeApi.getUserProfile(Cookie.getCookie(), userName);
         observable.observeOn(Schedulers.io())
@@ -109,8 +111,6 @@ public class DataProvider {
                         userProfile.getUsers().toString();
                     }
                 });
-
-
     }
 
 

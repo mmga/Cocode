@@ -1,4 +1,4 @@
-package com.mmga.cocode.data.ui;
+package com.mmga.cocode.data.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
