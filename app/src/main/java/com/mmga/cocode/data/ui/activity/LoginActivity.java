@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mmga.cocode.Constant;
 import com.mmga.cocode.R;
@@ -16,23 +17,34 @@ import com.mmga.cocode.data.data.provider.LoginProvider;
 import com.mmga.cocode.data.util.SharedPrefsUtil;
 import com.mmga.cocode.data.util.StatusBarCompat;
 import com.mmga.cocode.data.util.ToastUtil;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginCallback {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginCallback,Validator.ValidationListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.btn_login)
     Button loginButton;
     @Bind(R.id.login_username)
+    @NotEmpty
+    @Email
     EditText editTextName;
     @Bind(R.id.login_password)
+    @Password(min = 6, scheme = Password.Scheme.ANY)
     EditText editTextPassword;
 
     LoginProvider provider;
+    com.mobsandgeeks.saripaar.Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +76,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             }
         });
 
+        validator = new com.mobsandgeeks.saripaar.Validator(this);
+        validator.setValidationListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                login();
+                validator.validate();
         }
     }
 
@@ -91,5 +106,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void loginFailed(String errorText) {
         ToastUtil.showShort(errorText);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        login();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
